@@ -1,5 +1,6 @@
 import initKnex from "knex";
 import configuration from "../knexfile.js";
+import { PORT } from "../index.js";
 const knex = initKnex(configuration);
 
 const getVendors = async (_req, res) => {
@@ -74,6 +75,8 @@ const deleteVendor = async (req, res) => {
 };
 
 const addVendor = async (req, res) => {
+  console.log("Received body:", req.body); // Debugging request body
+  console.log("Received file:", req.file);
   const {
     name,
     category,
@@ -81,11 +84,16 @@ const addVendor = async (req, res) => {
     contactEmail,
     contactPhone,
     website,
-    imageUrl,
     updates,
     location,
     availability,
   } = req.body;
+
+  // Check if file is uploaded
+  let imageUrl = "";
+  if (req.file) {
+    imageUrl = `http://localhost:${PORT}/uploads/${req.file.filename}`; // URL to the uploaded file
+  }
 
   // Validate required fields
   if (!name || !category || !description || !contactEmail || !contactPhone) {
