@@ -11,6 +11,10 @@ app.get("/", (req, res) => {
   res.send("Welcome to Farm Folks Market API");
 });
 
+app.get("/api", (req, res) => {
+  res.send("Welcome to Farm Folks Market API");
+});
+
 app.use("/api/vendors", vendorRoute);
 
 app.listen(PORT, () => {
