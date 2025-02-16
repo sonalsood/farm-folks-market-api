@@ -3,6 +3,7 @@ import vendorRoute from "./routes/vendor-routes.js";
 import cors from "cors";
 import express from "express";
 const app = express();
+app.use(express.json());
 app.use(cors());
 
 const PORT = process.env.PORT || 5050;
