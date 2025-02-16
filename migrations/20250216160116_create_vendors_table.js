@@ -8,7 +8,8 @@ export function up(knex) {
     table.string("name", 255).notNullable();
     table.string("category", 100).notNullable();
     table.text("description").notNullable();
-    table.string("contactInfo", 255).notNullable();
+    table.string("contactEmail").notNullable();
+    table.string("contactPhone").notNullable();
     table.string("website", 255);
     table.string("imageUrl", 255);
     table.text("updates");
