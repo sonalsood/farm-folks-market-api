@@ -169,4 +169,105 @@ const getUniqueCategories = async (_req, res) => {
   }
 };
 
-export { getVendors, findVendor, deleteVendor, getUniqueCategories, addVendor };
+const editVendor = async (req, res) => {
+  const vendorId = req.params.id;
+  const {
+    name,
+    category,
+    description,
+    contactEmail,
+    contactPhone,
+    website,
+    updates,
+    location,
+    availability,
+  } = req.body;
+
+  try {
+    // Check if the vendor exists
+    const vendorExists = await knex("vendors").where({ id: vendorId }).first();
+    if (!vendorExists) {
+      return res
+        .status(404)
+        .json({ message: `Vendor with ID ${vendorId} not found` });
+    }
+
+    // Validate required fields
+    if (!name || !category || !description || !contactEmail || !contactPhone) {
+      return res.status(400).json({ error: "Missing required fields" });
+    }
+
+    // Validate email format
+    if (!/\S+@\S+\.\S+/.test(contactEmail)) {
+      return res.status(400).json({ error: "Invalid email format" });
+    }
+
+    // Validate phone number format
+    if (!/^\+?[0-9\s\-\(\)]{10,}$/.test(contactPhone)) {
+      return res.status(400).json({ error: "Invalid phone number format" });
+    }
+
+    // Handle image upload
+    let imageUrl = vendorExists.imageUrl; // Keep existing image if no new file is uploaded
+    if (req.file) {
+      imageUrl = `http://localhost:${PORT}/uploads/${req.file.filename}`;
+    }
+
+    // Prepare updated data
+    const updatedData = {
+      name,
+      category,
+      description,
+      contactEmail,
+      contactPhone,
+      website,
+      imageUrl,
+      updates,
+      location,
+      availability,
+    };
+
+    // Remove undefined fields to avoid overwriting them with null
+    Object.keys(updatedData).forEach((key) => {
+      if (updatedData[key] === undefined) delete updatedData[key];
+    });
+
+    // Update vendor data in the database
+    await knex("vendors").where({ id: vendorId }).update(updatedData);
+
+    // Retrieve updated vendor
+    const updatedVendor = await knex("vendors")
+      .select(
+        "id",
+        "name",
+        "category",
+        "description",
+        "contactEmail",
+        "contactPhone",
+        "website",
+        "imageUrl",
+        "updates",
+        "location",
+        "availability",
+        "updated_at"
+      )
+      .where({ id: vendorId })
+      .first();
+
+    res.status(200).json(updatedVendor);
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ message: `Error updating vendor. ${error.message}` });
+  }
+};
+
+export {
+  getVendors,
+  findVendor,
+  deleteVendor,
+  getUniqueCategories,
+  addVendor,
+  editVendor,
+};

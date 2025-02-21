@@ -6,7 +6,7 @@ import express from "express";
 export const PORT = process.env.PORT || 5050;
 
 const app = express();
-//app.use(express.json());
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 

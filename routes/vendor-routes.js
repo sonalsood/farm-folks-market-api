@@ -12,6 +12,7 @@ router
 router
   .route("/:id")
   .get(vendorController.findVendor)
+  .put(upload, vendorController.editVendor)
   .delete(vendorController.deleteVendor);
 
 export default router;
