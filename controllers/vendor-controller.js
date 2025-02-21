@@ -75,8 +75,6 @@ const deleteVendor = async (req, res) => {
 };
 
 const addVendor = async (req, res) => {
-  console.log("Received body:", req.body); // Debugging request body
-  console.log("Received file:", req.file);
   const {
     name,
     category,
