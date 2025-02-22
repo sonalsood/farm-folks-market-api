@@ -1,3 +1,6 @@
+import "dotenv/config";
+const PORT = process.env.PORT || 5050;
+
 /**
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
@@ -5,6 +8,7 @@
 export async function seed(knex) {
   // Deletes ALL existing entries
   await knex("vendors").del();
+  const BASE_URL = `http://localhost:${PORT}/uploads`;
   await knex("vendors").insert([
     {
       id: 1,
@@ -14,7 +18,7 @@ export async function seed(knex) {
       contactEmail: "freshfields@gmail.com",
       contactPhone: "+1 (416) 555-1234",
       website: "https://freshfieldsorganic.ca",
-      imageUrl: "https://example.com/freshfields.jpg",
+      imageUrl: `${BASE_URL}/freshfields.png`,
       updates: "Now offering home delivery in Toronto!",
       location: "123 Greenway Ave, Toronto, ON",
       availability: "Monday - Saturday",
@@ -27,7 +31,7 @@ export async function seed(knex) {
       contactEmail: "bakersdelight@gmail.com",
       contactPhone: "+1 (647) 555-5678",
       website: "https://bakersdelight.ca",
-      imageUrl: "https://example.com/bakersdelight.jpg",
+      imageUrl: `${BASE_URL}/bakersdelight.png`,
       updates: "Try our new gluten-free bread!",
       location: "456 Pastry Lane, Toronto, ON",
       availability: "Wednesday - Sunday",
@@ -40,7 +44,7 @@ export async function seed(knex) {
       contactEmail: "maplehoneyfarms@gmail.com",
       contactPhone: "+1 (437) 555-7890",
       website: "https://maplehoneyfarms.ca",
-      imageUrl: "https://example.com/maplehoney.jpg",
+      imageUrl: `${BASE_URL}/maplehoney.png`,
       updates: "Limited edition wildflower honey available!",
       location: "789 Honeycomb Dr, Mississauga, ON",
       availability: "Saturday - Sunday",
@@ -53,7 +57,7 @@ export async function seed(knex) {
       contactEmail: "greenleaf@gmail.com",
       contactPhone: "+1 (905) 555-1111",
       website: "https://greenleafsmoothies.ca",
-      imageUrl: "https://example.com/greenleaf.jpg",
+      imageUrl: `${BASE_URL}/greenleaf.png`,
       updates: "Get a free smoothie with every 5 purchases!",
       location: "321 Smoothie Blvd, Brampton, ON",
       availability: "Friday - Sunday",
@@ -66,7 +70,7 @@ export async function seed(knex) {
       contactEmail: "torontocheese@gmail.com",
       contactPhone: "+1 (416) 555-2222",
       website: "https://torontocheeseco.ca",
-      imageUrl: "https://example.com/torontocheese.jpg",
+      imageUrl: `${BASE_URL}/torontocheese.png`,
       updates: "New truffle-infused cheddar now available!",
       location: "555 Dairy Rd, Scarborough, ON",
       availability: "Thursday - Saturday",
@@ -79,7 +83,7 @@ export async function seed(knex) {
       contactEmail: "sunrisegreens@gmail.com",
       contactPhone: "+1 (416) 555-3333",
       website: "https://sunrisemicrogreens.ca",
-      imageUrl: "https://example.com/sunrisegreens.jpg",
+      imageUrl: `${BASE_URL}/sunrisegreens.png`,
       updates: "Now selling herb starter kits!",
       location: "78 Garden Lane, Toronto, ON",
       availability: "Monday - Friday",
@@ -92,7 +96,7 @@ export async function seed(knex) {
       contactEmail: "farmtocup@gmail.com",
       contactPhone: "+1 (647) 555-4444",
       website: "https://farmtocupcoffee.ca",
-      imageUrl: "https://example.com/farmtocup.jpg",
+      imageUrl: `${BASE_URL}/farmtocup.png`,
       updates: "New Colombian roast available!",
       location: "901 Espresso Rd, Vaughan, ON",
       availability: "Tuesday - Sunday",
@@ -105,7 +109,7 @@ export async function seed(knex) {
       contactEmail: "veganbutcher@gmail.com",
       contactPhone: "+1 (437) 555-5555",
       website: "https://theveganbutcher.ca",
-      imageUrl: "https://example.com/veganbutcher.jpg",
+      imageUrl: `${BASE_URL}/veganbutcher.png`,
       updates: "New smoked plant-based sausages!",
       location: "312 Tofu St, Markham, ON",
       availability: "Wednesday - Saturday",
@@ -118,7 +122,7 @@ export async function seed(knex) {
       contactEmail: "wildberryjams@gmail.com",
       contactPhone: "+1 (905) 555-6666",
       website: "https://wildberryjams.ca",
-      imageUrl: "https://example.com/wildberryjams.jpg",
+      imageUrl: `${BASE_URL}/wildberryjams.png`,
       updates: "Limited edition strawberry-basil jam available!",
       location: "29 Preserve Ln, Oakville, ON",
       availability: "Friday - Sunday",
@@ -131,7 +135,7 @@ export async function seed(knex) {
       contactEmail: "goldenharvest@gmail.com",
       contactPhone: "+1 (905) 555-7777",
       website: "https://goldenharvestmeats.ca",
-      imageUrl: "https://example.com/goldenharvest.jpg",
+      imageUrl: `${BASE_URL}/goldenharvest.png`,
       updates: "Now offering organic, nitrate-free bacon!",
       location: "500 Farmstead Rd, Milton, ON",
       availability: "Thursday - Saturday",
@@ -144,7 +148,7 @@ export async function seed(knex) {
       contactEmail: "bloomfieldflowers@gmail.com",
       contactPhone: "+1 (416) 555-8888",
       website: "https://bloomfieldflowers.ca",
-      imageUrl: "https://example.com/bloomfield.jpg",
+      imageUrl: `${BASE_URL}/bloomfield.png`,
       updates: "Spring tulips now in stock!",
       location: "601 Floral St, Toronto, ON",
       availability: "Monday - Saturday",
@@ -157,7 +161,7 @@ export async function seed(knex) {
       contactEmail: "nuttybaker@gmail.com",
       contactPhone: "+1 (647) 555-9999",
       website: "https://thenuttybaker.ca",
-      imageUrl: "https://example.com/nuttybaker.jpg",
+      imageUrl: `${BASE_URL}/nuttybaker.png`,
       updates: "Try our new hazelnut brownies!",
       location: "789 Almond Ave, Mississauga, ON",
       availability: "Wednesday - Sunday",
